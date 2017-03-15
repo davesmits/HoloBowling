@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  productGUID: 519e323996d219b4f9b4772ff099fb93
+  productGUID: 26cc52a8a73bd134f985258e7a2adcd3
   AndroidProfiler: 0
   defaultScreenOrientation: 4
   targetDevice: 2
@@ -212,11 +212,7 @@ PlayerSettings:
   m_BuildTargetIcons: []
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
-  m_BuildTargetVRSettings:
-  - m_BuildTarget: Metro
-    m_Enabled: 1
-    m_Devices:
-    - HoloLens
+  m_BuildTargetVRSettings: []
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
   webPlayerTemplate: APPLICATION:Default
@@ -385,9 +381,6 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
-<<<<<<< HEAD
-    14: 
-=======
     1: CROSS_PLATFORM_INPUT
     4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
@@ -395,7 +388,6 @@ PlayerSettings:
     17: MOBILE_INPUT
     20: MOBILE_INPUT
     22: MOBILE_INPUT
->>>>>>> cdd3b9172e3ff4602ef0e25789a769418158d539
   platformArchitecture: {}
   scriptingBackend: {}
   incrementalIl2cppBuild: {}
@@ -404,11 +396,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: HoloBowling
   metroPackageVersion: 
-  metroCertificatePath: C:\Projects\GitHub\HoloBowling\Unity\HoloBowling\Assets\WSATestCertificate.pfx
+  metroCertificatePath: 
   metroCertificatePassword: 
-  metroCertificateSubject: DefaultCompany
-  metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 0089e13cc1bcd301
+  metroCertificateSubject: 
+  metroCertificateIssuer: 
+  metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: HoloBowling
   wsaImages: {}
   metroTileShortName: 
@@ -423,12 +415,7 @@ PlayerSettings:
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628,
     a: 1}
   metroSplashScreenUseBackgroundColor: 0
-  platformCapabilities:
-    WindowsStoreApps:
-      InternetClient: True
-      Microphone: True
-      SpatialPerception: True
-      WebCam: True
+  platformCapabilities: {}
   metroFTAName: 
   metroFTAFileTypes: []
   metroProtocolName: 
