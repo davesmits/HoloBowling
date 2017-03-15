@@ -20,16 +20,6 @@ public class Barrels : MonoBehaviour, IInputClickHandler {
 
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        if (!_setupComplete)
-        {
-            var colliders = gameObject.GetComponentsInChildren<Collider>();
-            foreach (var collider in colliders)
-            {
-                var rigidbody = collider.gameObject.AddComponent<Rigidbody>();
-                rigidbody.useGravity = true;
-            }
 
-            _setupComplete = true;
-        }
     }
 }
