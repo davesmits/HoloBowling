@@ -13,10 +13,11 @@ public class SceneManager : Singleton<SceneManager> {
     public TapToPlace TapToPlaceObject;
     public ThrowBomb ThrowBomb;
 
+    public GameObject Barrels;
+
     // Use this for initialization
     void Start () {
-        Canvas.SetActive(false);
-        TapToPlaceObject.IsBeingPlaced = true;
+        CreateBarrels();
     }
 
     // Update is called once per frame
@@ -51,5 +52,21 @@ public class SceneManager : Singleton<SceneManager> {
             var rigidbody = collider.gameObject.AddComponent<Rigidbody>();
             rigidbody.useGravity = true;
         }
+    }
+
+    public void CreateBarrels()
+    {
+        ThrowBomb.enabled = false;
+        if (TapToPlaceObject != null)
+        {
+            Destroy(TapToPlaceObject.gameObject);
+        }
+
+        var newBarrals = Instantiate(Barrels);
+        TapToPlaceObject = newBarrals.GetComponent<TapToPlace>();
+
+        Canvas.SetActive(false);
+        TapToPlaceObject.IsBeingPlaced = true;
+        _gameStarted = false;
     }
 }
