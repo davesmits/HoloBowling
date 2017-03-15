@@ -385,7 +385,17 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
+<<<<<<< HEAD
     14: 
+=======
+    1: CROSS_PLATFORM_INPUT
+    4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+    7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+    14: MOBILE_INPUT
+    17: MOBILE_INPUT
+    20: MOBILE_INPUT
+    22: MOBILE_INPUT
+>>>>>>> cdd3b9172e3ff4602ef0e25789a769418158d539
   platformArchitecture: {}
   scriptingBackend: {}
   incrementalIl2cppBuild: {}
