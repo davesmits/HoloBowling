@@ -21,8 +21,9 @@ public class ThrowBomb : MonoBehaviour, IInputClickHandler
     public void OnInputClicked(InputClickedEventData eventData)
     {
         var bomb = Instantiate(Bomb);
+        bomb.transform.position = transform.position;
 
         var rigidBody = bomb.GetComponent<Rigidbody>();
-        rigidBody.AddForce(Vector3.forward * 100, ForceMode.Impulse);
+        rigidBody.AddForce(this.transform.rotation * (Vector3.forward * 50), ForceMode.Impulse);
     }
 }
