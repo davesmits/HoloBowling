@@ -6,6 +6,8 @@ using System;
 
 public class Barrels : MonoBehaviour, IInputClickHandler {
 
+    private bool _setupComplete;
+
     // Use this for initialization
     void Start () {
 		
@@ -18,7 +20,16 @@ public class Barrels : MonoBehaviour, IInputClickHandler {
 
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        var rigidbody = gameObject.AddComponent<Rigidbody>();
-        rigidbody.useGravity = true;
+        if (!_setupComplete)
+        {
+            var colliders = gameObject.GetComponentsInChildren<Collider>();
+            foreach (var collider in colliders)
+            {
+                var rigidbody = collider.gameObject.AddComponent<Rigidbody>();
+                rigidbody.useGravity = true;
+            }
+
+            _setupComplete = true;
+        }
     }
 }
