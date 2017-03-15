@@ -16,6 +16,7 @@ public class SceneManager : Singleton<SceneManager> {
     // Use this for initialization
     void Start () {
         Canvas.SetActive(false);
+        TapToPlaceObject.IsBeingPlaced = true;
     }
 
     // Update is called once per frame
@@ -41,7 +42,6 @@ public class SceneManager : Singleton<SceneManager> {
         _gameStarted = true;
         Canvas.SetActive(false);
         TapToPlaceObject.enabled = false;
-
         ThrowBomb.enabled = true;
 
 
