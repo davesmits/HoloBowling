@@ -16,11 +16,6 @@ public class Explosion : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        //_rigidBody.AddForce(Vector3.up * 7, ForceMode.Acceleration);
-    }
-
     public void Explode()
     {
         _particleSystem.Play();
