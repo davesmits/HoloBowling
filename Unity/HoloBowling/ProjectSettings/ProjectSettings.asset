@@ -384,7 +384,8 @@ PlayerSettings:
   webGLUseEmbeddedResources: 0
   webGLUseWasm: 0
   webGLCompressionFormat: 1
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    14: 
   platformArchitecture: {}
   scriptingBackend: {}
   incrementalIl2cppBuild: {}
@@ -393,11 +394,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: HoloBowling
   metroPackageVersion: 
-  metroCertificatePath: 
+  metroCertificatePath: C:\Projects\GitHub\HoloBowling\Unity\HoloBowling\Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 0089e13cc1bcd301
   metroApplicationDescription: HoloBowling
   wsaImages: {}
   metroTileShortName: 
