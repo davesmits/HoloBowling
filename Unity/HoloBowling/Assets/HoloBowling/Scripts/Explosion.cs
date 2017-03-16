@@ -19,19 +19,27 @@ public class Explosion : MonoBehaviour
     // Get notified when collision detected for the Bomb
     void OnCollisionEnter(Collision coll)
     {
+        // Delete all children, so the bomb is hidden when collided
         for (int index = 0; index < this.transform.childCount; index++)
         {
             var gameObject = this.transform.GetChild(index).gameObject;
             gameObject.SetActive(false);
         }
+
+        // Trigger the explosion
         Explode();
     }    
 
     // Bomb explodes on impact.
     public void Explode()
     {
+        // Start the particle system
         _particleSystem.Play();
+
+        // Start playing the audio clip
         _audioSource.Play();
+
+        // Destroy object after audio clip has finished
         Destroy(gameObject, _audioSource.clip.length);
     }
 
