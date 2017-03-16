@@ -53,13 +53,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4844484057112010}
-  - component: {fileID: 111909475560103096}
   - component: {fileID: 199923029444379748}
   - component: {fileID: 198361407344361752}
   - component: {fileID: 82529403774620334}
-  - component: {fileID: 114649055907742570}
-  - component: {fileID: 65410895045855410}
   - component: {fileID: 54337298194667482}
+  - component: {fileID: 65410895045855410}
+  - component: {fileID: 114649055907742570}
   m_Layer: 0
   m_Name: BombBall
   m_TagString: Untagged
@@ -117,8 +116,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528763008232754}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 4216355133813000}
@@ -278,7 +277,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.42, y: 1.4200004, z: 1.4200008}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82529403774620334
 AudioSource:
@@ -360,21 +359,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!111 &111909475560103096
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1528763008232754}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 38972d9a807375f4fbdbf2e076aa183f, type: 3}
-  m_Animations:
-  - {fileID: 7400000, guid: 38972d9a807375f4fbdbf2e076aa183f, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &114649055907742570
 MonoBehaviour:
   m_ObjectHideFlags: 1

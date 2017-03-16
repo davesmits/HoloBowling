@@ -11,7 +11,7 @@ public class SceneManager : Singleton<SceneManager> {
 
     public GameObject Canvas;
     public TapToPlace TapToPlaceObject;
-    public ThrowBomb ThrowBomb;
+    public ThrowBombCompleted ThrowBomb;
 
     public GameObject Barrels;
 
