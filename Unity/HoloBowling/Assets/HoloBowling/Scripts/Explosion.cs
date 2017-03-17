@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
+    private bool _exploded;
     private ParticleSystem _particleSystem;
     private AudioSource _audioSource;
     private Rigidbody _rigidBody;
@@ -33,14 +34,19 @@ public class Explosion : MonoBehaviour
     // Bomb explodes on impact.
     public void Explode()
     {
-        // Start the particle system
-        _particleSystem.Play();
+        if (!_exploded)
+        {
+            _exploded = true;
 
-        // Start playing the audio clip
-        _audioSource.Play();
+            // Start the particle system
+            _particleSystem.Play();
 
-        // Destroy object after audio clip has finished
-        Destroy(gameObject, _audioSource.clip.length);
+            // Start playing the audio clip
+            _audioSource.Play();
+
+            // Destroy object after audio clip has finished
+            Destroy(gameObject, _audioSource.clip.length);
+        }
     }
 
 }
