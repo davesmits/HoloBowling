@@ -11,13 +11,13 @@ public class SceneManager : Singleton<SceneManager> {
 
     public GameObject Canvas;
     public TapToPlace TapToPlaceObject;
-    public ThrowBombCompleted ThrowBomb;
+    public ThrowBomb ThrowBomb;
 
-    public GameObject Barrels;
+    public GameObject BarrelsPrefab;
 
     // Use this for initialization
     void Start () {
-        CreateBarrels();
+        SetupGame();
     }
 
     // Update is called once per frame
@@ -25,6 +25,7 @@ public class SceneManager : Singleton<SceneManager> {
     {
         if (!_gameStarted)
         {
+            // Check if the TapToPlace was finished, if so, show canvas to start the game
             if (TapToPlaceObject.IsBeingPlaced && _canvasVisible)
             {
                 Canvas.SetActive(false);
@@ -38,35 +39,53 @@ public class SceneManager : Singleton<SceneManager> {
         }
     }
 
+    // Setup the Barrels with Tap To Place and disable other features
+    public void SetupGame()
+    {
+        // Disable throwing bombs
+        ThrowBomb.enabled = false;
+        
+        // Set the new TapToPlace object and activate it
+        if (BarrelsPrefab != null)
+        {
+            // If we reset the game, destroy the previous Barrels
+            if (TapToPlaceObject != null)
+            {
+                Destroy(TapToPlaceObject.gameObject);
+            }
+
+            var newBarrals = Instantiate(BarrelsPrefab);
+            TapToPlaceObject = newBarrals.GetComponent<TapToPlace>();
+        }
+
+        TapToPlaceObject.IsBeingPlaced = true;
+
+        // Ensure Canvas is hidden
+        if (Canvas != null)
+        {
+            Canvas.SetActive(false);
+        }
+
+        _gameStarted = false;
+    }
+
+    // Called from the Canvas to start the game
     public void StartGame()
     {
+        // Hide setup features
         _gameStarted = true;
         Canvas.SetActive(false);
         TapToPlaceObject.enabled = false;
+
+        // Enable Throwing Bombs after setup has completed
         ThrowBomb.enabled = true;
-
-
+        
+        // Add a Rigid Body to all barrels
         var colliders = TapToPlaceObject.GetComponentsInChildren<Collider>();
         foreach (var collider in colliders)
         {
             var rigidbody = collider.gameObject.AddComponent<Rigidbody>();
             rigidbody.useGravity = true;
         }
-    }
-
-    public void CreateBarrels()
-    {
-        ThrowBomb.enabled = false;
-        if (TapToPlaceObject != null)
-        {
-            Destroy(TapToPlaceObject.gameObject);
-        }
-
-        var newBarrals = Instantiate(Barrels);
-        TapToPlaceObject = newBarrals.GetComponent<TapToPlace>();
-
-        Canvas.SetActive(false);
-        TapToPlaceObject.IsBeingPlaced = true;
-        _gameStarted = false;
     }
 }
