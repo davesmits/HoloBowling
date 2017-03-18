@@ -1,4 +1,5 @@
 ﻿using HoloToolkit.Unity.InputModule;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,9 +29,20 @@ public class ThrowBomb : MonoBehaviour, IInputClickHandler {
         var bomb = Instantiate(Bomb);
         bomb.transform.position = transform.position;
 
+        StartCoroutine(ExecuteAfterTime(() =>
+        {
+            bomb.GetComponent<Explosion>().Explode();
+        }, 3f));
+
         // Add a Rigid Body component to apply gravity and forces
         var rigidBody = bomb.GetComponent<Rigidbody>();
         rigidBody.AddForce(this.transform.rotation * (Vector3.forward * 30), ForceMode.VelocityChange);
+    }
+
+    IEnumerator ExecuteAfterTime(Action action, float time)
+    {
+        yield return new WaitForSeconds(time);
+        action();
     }
 
 }

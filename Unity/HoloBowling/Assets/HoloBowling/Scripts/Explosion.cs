@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HoloToolkit.Unity.SpatialMapping;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,15 +21,18 @@ public class Explosion : MonoBehaviour
     // Get notified when collision detected for the Bomb
     void OnCollisionEnter(Collision coll)
     {
-        // Delete all children, so the bomb is hidden when collided
-        for (int index = 0; index < this.transform.childCount; index++)
+        if (coll.gameObject.GetComponentInParent<TapToPlace>() != null)
         {
-            var gameObject = this.transform.GetChild(index).gameObject;
-            gameObject.SetActive(false);
-        }
+            // Delete all children, so the bomb is hidden when collided
+            for (int index = 0; index < this.transform.childCount; index++)
+            {
+                var gameObject = this.transform.GetChild(index).gameObject;
+                gameObject.SetActive(false);
+            }
 
-        // Trigger the explosion
-        Explode();
+            // Trigger the explosion
+            Explode();
+        }
     }    
 
     // Bomb explodes on impact.
