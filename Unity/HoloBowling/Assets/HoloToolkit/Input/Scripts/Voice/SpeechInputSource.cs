@@ -2,9 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
+#if UNITY_WSA || UNITY_STANDALONE_WIN
 using UnityEngine.Windows.Speech;
+#endif
 
 namespace HoloToolkit.Unity.InputModule
 {
@@ -20,7 +24,7 @@ namespace HoloToolkit.Unity.InputModule
     /// </summary>
     public partial class SpeechInputSource : BaseInputSource
     {
-        [System.Serializable]
+        [Serializable]
         public struct KeywordAndKeyCode
         {
             [Tooltip("The keyword to recognize.")]
@@ -28,6 +32,12 @@ namespace HoloToolkit.Unity.InputModule
             [Tooltip("The KeyCode to recognize.")]
             public KeyCode KeyCode;
         }
+
+        /// <summary>
+        /// Keywords are persistent across all scenes.  This Speech Input Source instance will not be destroyed when loading a new scene.
+        /// </summary>
+        [Tooltip("Keywords are persistent across all scenes.  This Speech Input Source instance will not be destroyed when loading a new scene.")]
+        public bool PersistentKeywords;
 
         // This enumeration gives the manager two different ways to handle the recognizer. Both will
         // set up the recognizer and add all keywords. The first causes the recognizer to start
@@ -40,25 +50,35 @@ namespace HoloToolkit.Unity.InputModule
         [Tooltip("The keywords to be recognized and optional keyboard shortcuts.")]
         public KeywordAndKeyCode[] Keywords;
 
+#if UNITY_WSA || UNITY_STANDALONE_WIN
+        [Tooltip("The confidence level for the keyword recognizer.")]
+        //The serialized data of this field will be lost when switching between platforms and re-serializing this class.
+        public ConfidenceLevel RecognitionConfidenceLevel;
+
         private KeywordRecognizer keywordRecognizer;
 
-        private SpeechKeywordRecognizedEventData speechKeywordRecognizedEventData;
+        #region Unity Methods
 
         protected override void Start()
         {
             base.Start();
 
-            speechKeywordRecognizedEventData = new SpeechKeywordRecognizedEventData(EventSystem.current);
+            if (PersistentKeywords)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
 
             int keywordCount = Keywords.Length;
             if (keywordCount > 0)
             {
-                string[] keywords = new string[keywordCount];
+                var keywords = new string[keywordCount];
+
                 for (int index = 0; index < keywordCount; index++)
                 {
                     keywords[index] = Keywords[index].Keyword;
                 }
-                keywordRecognizer = new KeywordRecognizer(keywords);
+
+                keywordRecognizer = new KeywordRecognizer(keywords, RecognitionConfidenceLevel);
                 keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
 
                 if (RecognizerStart == RecognizerStartBehavior.AutoStart)
@@ -106,21 +126,16 @@ namespace HoloToolkit.Unity.InputModule
             }
         }
 
-        private void ProcessKeyBindings()
-        {
-            for (int index = Keywords.Length; --index >= 0;)
-            {
-                if (Input.GetKeyDown(Keywords[index].KeyCode))
-                {
-                    OnPhraseRecognized(ConfidenceLevel.High, TimeSpan.Zero, DateTime.Now, null, Keywords[index].Keyword);
-                }
-            }
-        }
+        #endregion // Unity Methods
+
+        #region Event Callbacks
 
         private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
         {
             OnPhraseRecognized(args.confidence, args.phraseDuration, args.phraseStartTime, args.semanticMeanings, args.text);
         }
+
+        #endregion // Event Callbacks
 
         /// <summary>
         /// Make sure the keyword recognizer is off, then start it.
@@ -131,6 +146,17 @@ namespace HoloToolkit.Unity.InputModule
             if (keywordRecognizer != null && !keywordRecognizer.IsRunning)
             {
                 keywordRecognizer.Start();
+            }
+        }
+
+        private void ProcessKeyBindings()
+        {
+            for (int index = Keywords.Length; --index >= 0;)
+            {
+                if (Input.GetKeyDown(Keywords[index].KeyCode))
+                {
+                    OnPhraseRecognized(RecognitionConfidenceLevel, TimeSpan.Zero, DateTime.Now, null, Keywords[index].Keyword);
+                }
             }
         }
 
@@ -146,21 +172,13 @@ namespace HoloToolkit.Unity.InputModule
             }
         }
 
-        private static readonly ExecuteEvents.EventFunction<ISpeechHandler> OnSpeechKeywordRecognizedEventHandler =
-            delegate (ISpeechHandler handler, BaseEventData eventData)
-            {
-                SpeechKeywordRecognizedEventData casted = ExecuteEvents.ValidateEventData<SpeechKeywordRecognizedEventData>(eventData);
-                handler.OnSpeechKeywordRecognized(casted);
-            };
-
         protected void OnPhraseRecognized(ConfidenceLevel confidence, TimeSpan phraseDuration, DateTime phraseStartTime, SemanticMeaning[] semanticMeanings, string text)
         {
-            // Create input event
-            speechKeywordRecognizedEventData.Initialize(this, 0, confidence, phraseDuration, phraseStartTime, semanticMeanings, text);
-
-            // Pass handler through HandleEvent to perform modal/fallback logic
-            inputManager.HandleEvent(speechKeywordRecognizedEventData, OnSpeechKeywordRecognizedEventHandler);
+            InputManager.Instance.RaiseSpeechKeywordPhraseRecognized(this, 0, confidence, phraseDuration, phraseStartTime, semanticMeanings, text);
         }
+#endif
+
+        #region Base Input Source Methods
 
         public override bool TryGetPosition(uint sourceId, out Vector3 position)
         {
@@ -178,5 +196,7 @@ namespace HoloToolkit.Unity.InputModule
         {
             return SupportedInputInfo.None;
         }
+
+        #endregion // Base Input Source Methods
     }
 }
