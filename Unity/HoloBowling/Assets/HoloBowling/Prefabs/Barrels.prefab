@@ -332,6 +332,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4990068547385492}
   - component: {fileID: 114333238186879402}
+  - component: {fileID: 114529813034446368}
+  - component: {fileID: 114437260213051606}
   m_Layer: 0
   m_Name: Barrels
   m_TagString: Untagged
@@ -711,6 +713,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23118445785818746
 MeshRenderer:
@@ -744,6 +747,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23157122010440394
 MeshRenderer:
@@ -777,6 +781,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23285046467250018
 MeshRenderer:
@@ -810,6 +815,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23357637057612436
 MeshRenderer:
@@ -843,6 +849,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23414841808975482
 MeshRenderer:
@@ -876,6 +883,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23471757032755444
 MeshRenderer:
@@ -909,6 +917,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23582990493943182
 MeshRenderer:
@@ -942,6 +951,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23614653918601394
 MeshRenderer:
@@ -975,6 +985,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23979077428200604
 MeshRenderer:
@@ -1008,6 +1019,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33033572981643882
 MeshFilter:
@@ -1230,7 +1242,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbad991a9894486418e4988222483ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SavedAnchorFriendlyName: SavedAnchorFriendlyName
+  DefaultGazeDistance: 2
   PlaceParentOnTap: 0
   ParentGameObjectToPlace: {fileID: 0}
   IsBeingPlaced: 1
+  AllowMeshVisualizationControl: 1
+--- !u!114 &114437260213051606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1902303577083016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e81e2245c94ca4d97586f04d30784f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114529813034446368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1902303577083016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef662ab2ff31aba40a19a5b6d7e2bad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -23,6 +23,7 @@ public class HoloBowlingSceneManager : Singleton<HoloBowlingSceneManager>
     // Use this for initialization
     void Start()
     {
+        Canvas.SetActive(false);
         SharingStage.Instance.SharingManagerConnected += Instance_SharingManagerConnected;
     }
 
@@ -92,12 +93,6 @@ public class HoloBowlingSceneManager : Singleton<HoloBowlingSceneManager>
         // Enable Throwing Bombs after setup has completed
         ThrowBomb.enabled = true;
 
-        // Add a Rigid Body to all barrels
-        //var colliders = TapToPlaceObject.GetComponentsInChildren<Collider>();
-        //foreach (var collider in colliders)
-        //{
-        //    var rigidbody = collider.gameObject.AddComponent<Rigidbody>();
-        //    rigidbody.useGravity = true;
-        //}
+        
     }
 }

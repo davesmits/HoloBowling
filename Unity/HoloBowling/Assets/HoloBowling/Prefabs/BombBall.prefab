@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 65410895045855410}
   - component: {fileID: 114649055907742570}
   - component: {fileID: 114216809685065558}
+  - component: {fileID: 114690977328927176}
   m_Layer: 0
   m_Name: BombBall
   m_TagString: Untagged
@@ -385,6 +386,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d812613743e58884e8ae5ae49c95d20a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114690977328927176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1528763008232754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c5860374aed7742bb3b4cea592d5a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198361407344361752
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -444,7 +456,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1354205097
+  randomSeed: 1320251435
   InitialModule:
     serializedVersion: 3
     enabled: 1
