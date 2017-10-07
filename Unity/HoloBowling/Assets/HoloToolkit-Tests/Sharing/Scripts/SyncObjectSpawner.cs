@@ -35,25 +35,24 @@ namespace HoloToolkit.Sharing.Tests
             }
         }
 
-        public void SpawnBasicSyncObject()
-        {
-            Vector3 position = Random.onUnitSphere * 2;
-            Quaternion rotation = Random.rotation;
-
-            var spawnedObject = new SyncSpawnedObject();
-
-            spawnManager.Spawn(spawnedObject, position, rotation, spawnParentTransform.gameObject, "SpawnedObject", false);
+        public PlayfieldModel SpawnPlayfield(Vector3 position, Quaternion rotation)
+        {   
+            var spawnedObject = new PlayfieldModel();
+            spawnManager.Spawn(spawnedObject, position, rotation, spawnParentTransform.gameObject, "PlayfieldModel", false);
+            return spawnedObject;
         }
 
-        public void SpawnCustomSyncObject()
+        public void SpawnBomb(Vector3 position, Quaternion rotation, Vector3 force)
         {
-            Vector3 position = Random.onUnitSphere * 2;
-            Quaternion rotation = Random.rotation;
+            var spawnedObject = new BombModel();
+            spawnedObject.Force.Value = force;
 
-            var spawnedObject = new SyncSpawnTestSphere();
-            spawnedObject.TestFloat.Value = Random.Range(0f, 100f);
+            spawnManager.Spawn(spawnedObject, position, rotation, spawnParentTransform.gameObject, "BombModel", false);
+        }
 
-            spawnManager.Spawn(spawnedObject, position, rotation, spawnParentTransform.gameObject, "SpawnTestSphere", false);
+        public void DeleteSyncObject(SyncSpawnedObject syncSpawnObject)
+        {
+            spawnManager.Delete(syncSpawnObject);
         }
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace HoloToolkit.Sharing.Tests
                 if (syncModelAccessor != null)
                 {
                     var syncSpawnObject = (SyncSpawnedObject)syncModelAccessor.SyncModel;
-                    spawnManager.Delete(syncSpawnObject);
+                    DeleteSyncObject(syncSpawnObject);
                 }
             }
         }

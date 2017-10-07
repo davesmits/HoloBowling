@@ -1,5 +1,6 @@
 ﻿using HoloToolkit.Unity.InputModule;
 using HoloToolkit.Unity.SpatialMapping;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,15 @@ public class Explosion : MonoBehaviour
         _particleSystem = GetComponent<ParticleSystem>();
         _audioSource = GetComponent<AudioSource>();
         _rigidBody = GetComponent<Rigidbody>();
+
+        StartCoroutine(ExecuteAfterTime(() =>
+        {
+            this.Explode();
+        }, 3f));
     }
-    
+
+
+
     // Get notified when collision detected for the Bomb
     void OnCollisionEnter(Collision coll)
     {
@@ -52,6 +60,12 @@ public class Explosion : MonoBehaviour
             // Destroy object after audio clip has finished
             Destroy(gameObject, _audioSource.clip.length);
         }
+    }
+
+    IEnumerator ExecuteAfterTime(Action action, float time)
+    {
+        yield return new WaitForSeconds(time);
+        action();
     }
 
 }

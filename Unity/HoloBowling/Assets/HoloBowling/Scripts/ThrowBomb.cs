@@ -1,12 +1,12 @@
-﻿using HoloToolkit.Unity.InputModule;
+﻿using HoloToolkit.Sharing.Tests;
+using HoloToolkit.Unity.InputModule;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ThrowBomb : MonoBehaviour, IInputClickHandler {
 
-    public GameObject Bomb;
+    public SyncObjectSpawner Bomb;
 
     // Use this for initialization
     void Start()
@@ -25,24 +25,10 @@ public class ThrowBomb : MonoBehaviour, IInputClickHandler {
     // Implementation for IInputClickHandler
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        // Create a clone of the Bomb Prefab
-        var bomb = Instantiate(Bomb);
-        bomb.transform.position = transform.position;
-
-        StartCoroutine(ExecuteAfterTime(() =>
-        {
-            bomb.GetComponent<Explosion>().Explode();
-        }, 3f));
-
-        // Add a Rigid Body component to apply gravity and forces
-        var rigidBody = bomb.GetComponent<Rigidbody>();
-        rigidBody.AddForce(this.transform.rotation * (Vector3.forward * 30), ForceMode.VelocityChange);
+        var force = this.transform.rotation * (Vector3.forward * 30);
+        Bomb.SpawnBomb(transform.position, Quaternion.identity, force);
     }
 
-    IEnumerator ExecuteAfterTime(Action action, float time)
-    {
-        yield return new WaitForSeconds(time);
-        action();
-    }
+    
 
 }
