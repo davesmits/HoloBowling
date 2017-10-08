@@ -4,5 +4,5 @@ using HoloToolkit.Sharing.SyncModel;
 [SyncDataClass]
 public class BombModel : SyncSpawnedObject
 {
-    [SyncData] public SyncVector3 Force = new SyncVector3("Position");
+    [SyncData] public SyncVector3 Force = new SyncVector3("Force");
 }

@@ -12,4 +12,5 @@ public class PlayfieldModel : SyncSpawnedObject
 
     [SyncData] public SyncBool IsBeingPlaced;
     [SyncData] public SyncBool GameStarted;
+    [SyncData] public SyncString MovedBy = new SyncString("MovedBy");
 }

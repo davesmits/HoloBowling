@@ -69,6 +69,7 @@ public class HoloBowlingSceneManager : Singleton<HoloBowlingSceneManager>
         Playfield = ObjectSpawner.SpawnPlayfield(Vector3.zero, Quaternion.identity);
 
 
+        Playfield.MovedBy.Value = SharingStage.Instance.UserName;
         Playfield.IsBeingPlaced.Value = true;
 
         // Ensure Canvas is hidden
@@ -87,12 +88,15 @@ public class HoloBowlingSceneManager : Singleton<HoloBowlingSceneManager>
         _gameStarted = true;
         Canvas.SetActive(false);
 
+        Playfield.MovedBy.Value = string.Empty;
+        Playfield.IsBeingPlaced.Value = false;
+
         Playfield.GameStarted.Value = true;
         //TapToPlaceObject.enabled = false;
 
         // Enable Throwing Bombs after setup has completed
         ThrowBomb.enabled = true;
 
-        
+
     }
 }
