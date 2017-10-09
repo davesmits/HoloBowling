@@ -6,6 +6,8 @@
 using UnityEngine;
 using HoloToolkit.Sharing.Spawning;
 using HoloToolkit.Unity.InputModule;
+using System;
+using System.Linq;
 
 namespace HoloToolkit.Sharing.Tests
 {
@@ -36,7 +38,7 @@ namespace HoloToolkit.Sharing.Tests
         }
 
         public PlayfieldModel SpawnPlayfield(Vector3 position, Quaternion rotation)
-        {   
+        {
             var spawnedObject = new PlayfieldModel();
             spawnManager.Spawn(spawnedObject, position, rotation, spawnParentTransform.gameObject, "PlayfieldModel", false);
             return spawnedObject;
@@ -48,6 +50,13 @@ namespace HoloToolkit.Sharing.Tests
             spawnedObject.Force.Value = force;
 
             spawnManager.Spawn(spawnedObject, position, rotation, spawnParentTransform.gameObject, "BombModel", false);
+        }
+
+        public PlayfieldModel FindPlayfield()
+        {
+            var instance = SharingStage.Instance.Root.InstantiatedPrefabs;
+
+            return instance.OfType<PlayfieldModel>().FirstOrDefault();
         }
 
         public void DeleteSyncObject(SyncSpawnedObject syncSpawnObject)

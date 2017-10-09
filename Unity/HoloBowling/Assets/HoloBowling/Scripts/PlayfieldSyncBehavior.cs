@@ -100,7 +100,7 @@ public class PlayfieldSyncBehavior : MonoBehaviour
 
 
 
-            if (model.GameStarted.Value != gameStarted)
+            if (model.GameStarted.Value != gameStarted && HoloBowlingSceneManager.Instance.ExperienceStarted)
             {
                 gameStarted = model.GameStarted.Value;
 

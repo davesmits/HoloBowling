@@ -239,10 +239,6 @@ namespace HoloToolkit.Sharing.Spawning
                 syncModelAccessors[i].SetSyncModel(dataModel);
             }
 
-            // Setup the transform synchronization
-            TransformSynchronizer transformSynchronizer = instance.EnsureComponent<TransformSynchronizer>();
-            transformSynchronizer.TransformDataModel = dataModel.Transform;
-
             return instance;
         }
     }

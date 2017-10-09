@@ -14,23 +14,38 @@ public class HoloBowlingSceneManager : Singleton<HoloBowlingSceneManager>
     private bool _gameStarted;
 
     public GameObject Canvas;
+    public GameObject StartExperienceCanvas;
+
+
     public ThrowBomb ThrowBomb;
 
 
     public PlayfieldModel Playfield;
     public SyncObjectSpawner ObjectSpawner;
 
+    public bool ExperienceStarted;
+
     // Use this for initialization
     void Start()
     {
         Canvas.SetActive(false);
-        SharingStage.Instance.SharingManagerConnected += Instance_SharingManagerConnected;
+        ThrowBomb.enabled = false;
+
+        if (SharingStage.Instance.IsConnected)
+        {
+            StartExperienceCanvas.SetActive(true);
+        }
+        else
+        {
+            StartExperienceCanvas.SetActive(false);
+            SharingStage.Instance.SharingManagerConnected += Instance_SharingManagerConnected;
+        }
     }
 
     private void Instance_SharingManagerConnected(object sender, System.EventArgs e)
     {
         SharingStage.Instance.SharingManagerConnected -= Instance_SharingManagerConnected;
-        SetupGame();
+        StartExperienceCanvas.SetActive(true);
     }
 
     // Update is called once per frame
@@ -52,13 +67,29 @@ public class HoloBowlingSceneManager : Singleton<HoloBowlingSceneManager>
         }
     }
 
+    public void TrySetupGame()
+    {
+        Playfield = ObjectSpawner.FindPlayfield();
+        if (Playfield == null)
+        {
+            WorldAnchorManager.Instance.AnchorDebugText.text += "\nTry setup game, no playfield";
+            SetupGame();
+        }
+        else
+        {
+            WorldAnchorManager.Instance.AnchorDebugText.text += "\nTry setup game, with playfield";
+            ThrowBomb.enabled = true;
+        }
+
+        ExperienceStarted = true;
+        Destroy(StartExperienceCanvas);
+    }
+
     // Setup the Barrels with Tap To Place and disable other features
     public void SetupGame()
     {
         // Disable throwing bombs
         ThrowBomb.enabled = false;
-
-        // Set the new TapToPlace object and activate it
 
         // If we reset the game, destroy the previous Barrels
         if (Playfield != null)
@@ -67,8 +98,6 @@ public class HoloBowlingSceneManager : Singleton<HoloBowlingSceneManager>
         }
 
         Playfield = ObjectSpawner.SpawnPlayfield(Vector3.zero, Quaternion.identity);
-
-
         Playfield.MovedBy.Value = SharingStage.Instance.UserName;
         Playfield.IsBeingPlaced.Value = true;
 
